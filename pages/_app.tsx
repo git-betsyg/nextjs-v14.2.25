@@ -3,7 +3,6 @@ import type { AppProps } from "next/app";
 import { SessionProvider } from "next-auth/react";
 import Layout from "@/components/layout";
 import WebVitals from "@/components/web-vitals";
-import { Provider as JotaiProvider } from "jotai";
 import {
   HydrationBoundary,
   QueryClient,
@@ -20,17 +19,15 @@ export default function App({
   return (
     <>
       <WebVitals />
-      <JotaiProvider>
-        <QueryClientProvider client={queryClient}>
-          <HydrationBoundary state={pageProps.dehydratedState}>
-            <SessionProvider session={session}>
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
-            </SessionProvider>
-          </HydrationBoundary>
-        </QueryClientProvider>
-      </JotaiProvider>
+      <QueryClientProvider client={queryClient}>
+        <HydrationBoundary state={pageProps.dehydratedState}>
+          <SessionProvider session={session}>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </SessionProvider>
+        </HydrationBoundary>
+      </QueryClientProvider>
     </>
   );
 }
